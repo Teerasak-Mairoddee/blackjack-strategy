@@ -116,19 +116,20 @@ export default function App() {
         <h1>Basic Strategy</h1>
         <button
           type="button"
-          className="rules-chip"
+          className={`icon-btn${settingsOpen ? ' icon-btn-on' : ''}`}
+          aria-label={settingsOpen ? 'Close table rules' : 'Table rules'}
           aria-expanded={settingsOpen}
           aria-controls="settings-panel"
+          title={rulesSummary(rules)}
           onClick={() => setSettingsOpen((o) => !o)}
-          data-testid="rules-summary"
+          data-testid="rules-toggle"
         >
-          <span className="rules-text">{rulesSummary(rules)}</span>
-          <span className="rules-edit">{settingsOpen ? 'Done' : 'Rules'}</span>
+          {settingsOpen ? <CloseIcon /> : <SlidersIcon />}
         </button>
       </header>
 
       {settingsOpen ? (
-        <SettingsPanel rules={rules} onChange={setRules} midRound={midRound} />
+        <SettingsPanel rules={rules} summary={rulesSummary(rules)} onChange={setRules} midRound={midRound} />
       ) : null}
 
       <main className="table">
@@ -239,5 +240,24 @@ export default function App() {
         </button>
       </nav>
     </div>
+  );
+}
+
+function SlidersIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" />
+      <circle cx="16" cy="6" r="2" />
+      <circle cx="10" cy="12" r="2" />
+      <circle cx="18" cy="18" r="2" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
   );
 }

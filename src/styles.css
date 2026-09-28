@@ -85,6 +85,9 @@ button:disabled {
 
 /* Header and rules summary */
 .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px 0 6px;
 }
 
@@ -92,32 +95,35 @@ button:disabled {
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  margin: 0 0 8px;
+  margin: 0;
 }
 
-.rules-chip {
-  display: flex;
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  width: 100%;
-  text-align: left;
-  background: var(--surface);
+  justify-content: center;
+  border-radius: 12px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-size: 0.82rem;
+  background: var(--surface);
+  color: var(--text);
 }
 
-.rules-text {
-  flex: 1;
-  color: var(--muted);
-  line-height: 1.35;
-}
-
-.rules-edit {
-  font-weight: 600;
+.icon-btn-on {
+  border-color: var(--accent);
   color: var(--accent);
-  white-space: nowrap;
+}
+
+.settings-summary {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.key-wide {
+  grid-column: 1 / -1;
 }
 
 /* Settings */
@@ -423,12 +429,12 @@ button:disabled {
 
 .keypad-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 
 .key {
-  min-height: 56px;
+  min-height: 46px;
   border-radius: 12px;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -528,7 +534,7 @@ button:disabled {
     gap: 6px;
   }
   .key {
-    min-height: 50px;
+    min-height: 44px;
   }
   .result-move {
     font-size: 2.2rem;

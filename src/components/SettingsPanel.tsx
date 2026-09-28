@@ -2,6 +2,7 @@ import { DECK_OPTIONS, MAX_SPLIT_OPTIONS, PRESETS, sameRules, type DoubleRule, t
 
 type Props = {
   rules: Rules;
+  summary: string;
   onChange: (rules: Rules) => void;
   midRound: boolean;
 };
@@ -48,12 +49,15 @@ const yesNo: Option<boolean>[] = [
   { value: false, label: 'No' },
 ];
 
-export function SettingsPanel({ rules, onChange, midRound }: Props) {
+export function SettingsPanel({ rules, summary, onChange, midRound }: Props) {
   const set = <K extends keyof Rules>(k: K, v: Rules[K]) => onChange({ ...rules, [k]: v });
   const activePreset = PRESETS.find((p) => sameRules(p.rules, rules));
 
   return (
     <div className="settings" id="settings-panel">
+      <p className="settings-summary" data-testid="rules-summary">
+        {summary}
+      </p>
       {midRound ? (
         <p className="warning" role="status">
           Changing rules mid-round recalculates the advice for the current hand.

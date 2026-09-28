@@ -19,10 +19,11 @@ test('dealer K, player K,3 → HIT; add 2 → still HIT on hard 15', async ({ pa
 
 test('undo, replace and new round keep rules', async ({ page }) => {
   await page.goto('./');
-  await page.getByTestId('rules-summary').click();
+  await page.getByRole('button', { name: 'Table rules' }).click();
   await page.getByRole('radiogroup', { name: 'Decks' }).getByRole('radio', { name: '2' }).click();
-  await page.getByTestId('rules-summary').click();
   await expect(page.getByTestId('rules-summary')).toContainText('2 decks');
+  await page.getByRole('button', { name: 'Close table rules' }).click();
+  await expect(page.getByTestId('rules-summary')).toBeHidden();
 
   await key(page, '4').click();
   await key(page, '5').click();
@@ -42,6 +43,7 @@ test('undo, replace and new round keep rules', async ({ page }) => {
   await page.getByRole('button', { name: 'New round' }).click();
   await expect(page.getByTestId('result')).toContainText('Select dealer upcard');
   await page.reload();
+  await page.getByRole('button', { name: 'Table rules' }).click();
   await expect(page.getByTestId('rules-summary')).toContainText('2 decks');
 });
 
@@ -67,4 +69,19 @@ test('blackjack is terminal', async ({ page }) => {
   await key(page, 'A').click();
   await key(page, 'K').click();
   await expect(move(page)).toHaveText('BLACKJACK');
+});
+
+test('keypad has three columns with a full-width ace key', async ({ page }) => {
+  await page.goto('./');
+  const two = await key(page, '2').boundingBox();
+  const four = await key(page, '4').boundingBox();
+  const five = await key(page, '5').boundingBox();
+  const j = await key(page, 'J').boundingBox();
+  const k = await key(page, 'K').boundingBox();
+  const ace = await key(page, 'A').boundingBox();
+  expect(five!.y).toBeGreaterThan(two!.y); // 5 starts a new row
+  expect(Math.abs(four!.y - two!.y)).toBeLessThan(1);
+  expect(ace!.y).toBeGreaterThan(j!.y);
+  expect(Math.abs(ace!.x - j!.x)).toBeLessThan(1);
+  expect(Math.abs(ace!.x + ace!.width - (k!.x + k!.width))).toBeLessThan(1);
 });
