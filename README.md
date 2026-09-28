@@ -2,7 +2,7 @@
 
 A fast, mobile-first web app that recommends the basic-strategy play for the dealer's upcard and your hand, under the table rules you choose. Tap the dealer card, tap your two cards, and the recommendation appears. Everything runs in the browser: no account, server, API key, or network request after the page loads.
 
-**Live URL:** `https://<USERNAME>.github.io/<REPO>/` (fill in after the first deploy)
+**Live URL:** https://teerasak-mairoddee.github.io/blackjack-strategy/
 
 ## Local development
 
